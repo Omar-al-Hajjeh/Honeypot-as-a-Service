@@ -2,10 +2,27 @@
 @startuml
 left to right direction
 
-actor Customer
-actor "Platform Administrator" as Admin
-actor "AWS Infrastructure" as AWS
-actor "Notification Service" as Notify
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundcorner 12
+
+skinparam usecase {
+  BackgroundColor #F8F9FA
+  BorderColor #566573
+  FontColor #17202A
+}
+
+skinparam package {
+  BorderColor #85929E
+  BackgroundColor #FFFFFF
+  FontColor #2C3E50
+}
+
+' Actors
+actor Customer #D6EAF8
+actor "Platform Administrator" as Admin #FDEBD0
+actor "AWS Infrastructure" as AWS #D5F5E3
+actor "Notification Service" as Notify #E8DAEF
 
 rectangle "HaaS Platform" {
 
@@ -41,33 +58,40 @@ rectangle "HaaS Platform" {
   }
 }
 
-Customer --> UC1
-Customer --> UC2
-Customer --> UC3
-Customer --> UC4
-Customer --> UC6
-Customer --> UC7
-Customer --> UC8
-Customer --> UC9
-Customer --> UC10
-Customer --> UC12
-Customer --> UC13
-Customer --> UC14
+' Customer associations - BLUE
+Customer -[#2980B9]-> UC1
+Customer -[#2980B9]-> UC2
+Customer -[#2980B9]-> UC3
+Customer -[#2980B9]-> UC4
+Customer -[#2980B9]-> UC6
+Customer -[#2980B9]-> UC7
+Customer -[#2980B9]-> UC8
+Customer -[#2980B9]-> UC9
+Customer -[#2980B9]-> UC10
+Customer -[#2980B9]-> UC12
+Customer -[#2980B9]-> UC13
+Customer -[#2980B9]-> UC14
 
-Admin --> UC2
-Admin --> UC17
-Admin --> UC18
-Admin --> UC19
+' Administrator associations - ORANGE
+Admin -[#E67E22]-> UC2
+Admin -[#E67E22]-> UC17
+Admin -[#E67E22]-> UC18
+Admin -[#E67E22]-> UC19
 
-UC4 ..> UC5 : <<include>>
-UC7 ..> UC11 : <<include>>
-UC15 ..> UC13 : <<extend>>
-UC16 ..> UC13 : <<extend>>
+' AWS associations - GREEN
+AWS -[#27AE60]-> UC7
+AWS -[#27AE60]-> UC8
+AWS -[#27AE60]-> UC9
 
-AWS --> UC7
-AWS --> UC8
-AWS --> UC9
+' Notification associations - PURPLE
+Notify -[#8E44AD]-> UC7
 
-Notify --> UC7
+' Include relationships - DARK BLUE
+UC4 -[#2471A3,dashed]-> UC5 : <<include>>
+UC7 -[#2471A3,dashed]-> UC11 : <<include>>
+
+' Extend relationships - PURPLE
+UC15 -[#8E44AD,dashed]-> UC13 : <<extend>>
+UC16 -[#8E44AD,dashed]-> UC13 : <<extend>>
 
 @enduml
