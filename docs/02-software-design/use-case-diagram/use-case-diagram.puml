@@ -1,0 +1,73 @@
+
+@startuml
+left to right direction
+
+actor Customer
+actor "Platform Administrator" as Admin
+actor "AWS Infrastructure" as AWS
+actor "Notification Service" as Notify
+
+rectangle "HaaS Platform" {
+
+  package "Authentication" {
+    usecase "Register" as UC1
+    usecase "Login" as UC2
+    usecase "Manage Account" as UC3
+  }
+
+  package "Honeypot Management" {
+    usecase "Create Honeypot" as UC4
+    usecase "Select Honeypot Type" as UC5
+    usecase "Configure Honeypot" as UC6
+    usecase "Deploy Honeypot" as UC7
+    usecase "Stop Honeypot" as UC8
+    usecase "Delete Honeypot" as UC9
+    usecase "View Honeypot Status" as UC10
+    usecase "Validate Configuration" as UC11
+  }
+
+  package "Attack Monitoring" {
+    usecase "View Dashboard" as UC12
+    usecase "View Attack Events" as UC13
+    usecase "View Attack Details" as UC14
+    usecase "Filter Attack Events" as UC15
+    usecase "Export Attack Events" as UC16
+  }
+
+  package "Administration" {
+    usecase "Manage Tenants" as UC17
+    usecase "Manage Users" as UC18
+    usecase "Monitor Infrastructure" as UC19
+  }
+}
+
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC4
+Customer --> UC6
+Customer --> UC7
+Customer --> UC8
+Customer --> UC9
+Customer --> UC10
+Customer --> UC12
+Customer --> UC13
+Customer --> UC14
+
+Admin --> UC2
+Admin --> UC17
+Admin --> UC18
+Admin --> UC19
+
+UC4 ..> UC5 : <<include>>
+UC7 ..> UC11 : <<include>>
+UC15 ..> UC13 : <<extend>>
+UC16 ..> UC13 : <<extend>>
+
+AWS --> UC7
+AWS --> UC8
+AWS --> UC9
+
+Notify --> UC7
+
+@enduml
