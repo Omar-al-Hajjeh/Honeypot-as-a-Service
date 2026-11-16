@@ -1,0 +1,56 @@
+@startuml HaaS-System-Context
+
+!include <C4/C4_Context>
+title HaaS - System Context Diagram
+
+LAYOUT_LEFT_RIGHT()
+
+' ===== Fonts =====
+skinparam dpi 150
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 14
+skinparam titleFontSize 22
+skinparam titleFontStyle bold
+skinparam ArrowFontSize 12
+skinparam ArrowFontName "Arial"
+skinparam LegendFontSize 12
+skinparam rectangleFontSize 14
+skinparam personFontSize 14
+skinparam usecaseFontSize 15
+skinparam usecaseFontStyle bold
+
+' ===== Circle style for the platform =====
+skinparam usecase {
+  BackgroundColor #1168BD
+  BorderColor #0B4884
+  FontColor #FFFFFF
+  BorderThickness 2
+}
+
+' ===== Custom Actor Colors =====
+AddPersonTag("platformAdmin", $bgColor="#BFDBFE", $fontColor="#1E293B", $borderColor="#2563EB", $legendText="Platform Administrator")
+AddPersonTag("orgAdmin", $bgColor="#BBF7D0", $fontColor="#14532D", $borderColor="#16A34A", $legendText="Organization Administrator")
+AddPersonTag("securityAnalyst", $bgColor="#FDE68A", $fontColor="#78350F", $borderColor="#D97706", $legendText="Security Analyst")
+
+' ===== People =====
+Person(admin, "Platform Administrator", "Manages the entire HaaS platform", $tags="platformAdmin")
+Person(orgAdmin, "Organization Administrator", "Manages organization members and honeypots", $tags="orgAdmin")
+Person(analyst, "Security Analyst", "Monitors honeypots and analyzes security events", $tags="securityAnalyst")
+
+' ===== Main System (circle) =====
+usecase haas as "<size:20><b>HaaS Platform</b></size>\n<size:12>[Software System]</size>\n\n<size:13>Multi-tenant platform for\ndeploying and managing\nSSH and HTTP/HTTPS\nhoneypots</size>"
+
+' ===== External Systems =====
+System_Ext(aws, "Amazon Web Services (AWS)", "Provides cloud infrastructure for hosting honeypots")
+System_Ext(email, "Email Service", "Delivers security notifications and alerts")
+
+' ===== Relationships =====
+Rel(admin, haas, "Manages platform", "HTTPS")
+Rel(orgAdmin, haas, "Manages organization and honeypots", "HTTPS")
+Rel(analyst, haas, "Monitors security events", "HTTPS")
+Rel(haas, aws, "Provisions and manages honeypot infrastructure", "AWS APIs")
+Rel(haas, email, "Sends security notifications", "Email API")
+
+SHOW_LEGEND()
+
+@enduml
