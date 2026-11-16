@@ -22,6 +22,6 @@ This diagram describes the interactions between users and the Honeypot as a Serv
 
 
 ## Source
-The UML diagram source is available in `use-case-diagram.puml`.
+![HaaS Use Case Diagram](docs/02-software-design/use-case-diagram/use-case-diagram.png)
 
 **Technology:** PlantUML
