@@ -46,7 +46,7 @@ The diagram represents the following high-level interactions:
 
 ## 6. Diagram
 
-![HaaS Context Diagram](context-diagram.png)
+![HaaS Context Diagram](HaaS-System-Context.png)
 
 ## 7. Scope and Limitations
 
