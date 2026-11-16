@@ -1,0 +1,67 @@
+
+@startuml
+title HaaS - Main Activity Diagram
+
+|User|
+start
+:Open HaaS platform;
+:Enter login credentials;
+
+|HaaS Platform|
+:Validate credentials;
+
+if (Credentials valid?) then (Yes)
+
+    |User|
+    :Open Dashboard;
+    :Select Create Honeypot;
+    :Choose honeypot type;
+
+    if (SSH or HTTP/HTTPS?) then (Selected)
+
+        :Configure honeypot settings;
+        :Submit configuration;
+
+        |HaaS Platform|
+        :Validate configuration;
+
+        if (Configuration valid?) then (Yes)
+
+            :Deploy honeypot;
+
+            if (Deployment successful?) then (Yes)
+
+                :Start honeypot;
+                :Collect interaction logs;
+                :Store logs;
+                :Analyze collected data;
+                :Generate reports;
+
+                |User|
+                :View dashboard;
+                :View logs and reports;
+
+                if (Stop honeypot?) then (Yes)
+                    |HaaS Platform|
+                    :Stop honeypot;
+                else (No)
+                    |HaaS Platform|
+                    :Continue monitoring;
+                endif
+
+            else (No)
+                :Display deployment error;
+            endif
+
+        else (No)
+            :Display configuration error;
+        endif
+
+    endif
+
+else (No)
+    :Display login error;
+endif
+
+stop
+@enduml
